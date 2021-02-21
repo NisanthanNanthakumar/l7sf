@@ -26,7 +26,7 @@ jobs:
 
       - name: Install & Run Script
         run: |
-          cd l7sf
+          ls
           yarn install
           yarn run data/background
 
