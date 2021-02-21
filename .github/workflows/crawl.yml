@@ -1,9 +1,7 @@
 name: crawl-l7sf
 
 # Run this workflow every time a new commit pushed to your repository
-on:
-  schedule:
-    - cron: "*/10 * * * *"
+on: push
 
 jobs:
   # Set the job key. The key is displayed as the job name
@@ -25,7 +23,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14'
-          
+
       - name: Install & Run Script
         run: |
           cd l7sf

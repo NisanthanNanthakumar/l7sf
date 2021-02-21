@@ -72,7 +72,7 @@ export default function Home() {
   const getUnitHistory = selectedFloorplan => {
     return Object.values(data).reduce((acc, curr) => {
       let floorPlan = curr[0].floorPlanImages.length
-      ? curr[0].floorPlanImages[0].httpsSrc
+      ? curr[0].floorPlanImages[0].httpsSrc.replace('%s', '640x640')
       : null
       if ( floorPlan === selectedFloorplan) {
         acc.push(...curr)
@@ -105,7 +105,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Symmetrize Dashboard</title>
+        <title>L7SF Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
@@ -120,6 +120,7 @@ export default function Home() {
           <div>
             <h3>Beds</h3>
             <Select
+              instanceId={"beds"}
               defaultValue={selectedBedOptions}
               isMulti
               name="beds"
@@ -133,6 +134,7 @@ export default function Home() {
           <div>
             <h3>Baths</h3>
             <Select
+            instanceId={"baths"}
               defaultValue={selectedBathOptions}
               isMulti
               name="baths"
@@ -146,6 +148,7 @@ export default function Home() {
           <div>
             <h3>Order By</h3>
             <Select
+            instanceId={"order"}
               className="basic-single"
               classNamePrefix="select"
               defaultValue={orderByOption}
@@ -210,6 +213,7 @@ export default function Home() {
         onRequestClose={() => setSelectedFloorplan(null)}
         style={modalStyles}
         contentLabel="Example Modal"
+        ariaHideApp={false} 
       >
         <DetailedView
           floorPlan={selectedFloorplan}
