@@ -27,7 +27,7 @@ jobs:
       - name: Install & Run Script
         run: |
           cd l7sf
-          yarn install --frozen-lockfile
+          yarn install
           yarn run data/background
 
       - name: Git Commit & Push
