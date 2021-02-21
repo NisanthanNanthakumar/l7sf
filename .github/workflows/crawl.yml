@@ -1,0 +1,42 @@
+name: crawl-l7sf
+
+# Run this workflow every time a new commit pushed to your repository
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+
+jobs:
+  # Set the job key. The key is displayed as the job name
+  # when a job name is not provided
+  crawl-and-save:
+    # Name the Job
+    name: Crawl for l7sf rent data and save.
+    # Set the type of machine to run on
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          path: l7sf
+      
+      - name: Use node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+          
+      - name: Install & Run Script
+        run: |
+          cd l7sf
+          yarn install --frozen-lockfile
+          yarn run data/background
+
+      - name: Git Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          repository: l7sf
+          branch: main
+          commit_message: Generated
+          commit_user_email: crawl-bot@github.com
+          commit_user_name: crawl-bot

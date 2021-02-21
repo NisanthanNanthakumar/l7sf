@@ -5,11 +5,19 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "crawl-and-save": "node data/background.js"
   },
   "dependencies": {
+    "date-fns": "^2.16.1",
     "next": "10.0.3",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-modal": "^3.12.1",
+    "react-select": "^3.1.1",
+    "recharts": "^1.8.5"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1"
   }
 }
