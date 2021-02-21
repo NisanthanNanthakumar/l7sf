@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "crawl-and-save": "node data/background.js"
+    "crawl-and-save": "node ./data/background.js"
   },
   "dependencies": {
     "date-fns": "^2.16.1",
