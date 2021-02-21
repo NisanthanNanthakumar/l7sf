@@ -1,7 +1,9 @@
 name: crawl-l7sf
 
 # Run this workflow every time a new commit pushed to your repository
-on: push
+on: 
+  schedule:
+    - cron: "*/1 * * * *"
 
 jobs:
   # Set the job key. The key is displayed as the job name
