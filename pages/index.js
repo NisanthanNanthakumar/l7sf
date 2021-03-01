@@ -63,23 +63,25 @@ export default function Home() {
     "rent/sqft": unit.rent / unit.squareFeet,
     rentModifiedTimestamp: unit.rentModifiedTimestamp,
     floorPlan: unit.floorPlanImages.length
-      ? unit.floorPlanImages[0].httpsSrc.replace('%s', '640x640')
+      ? unit.floorPlanImages[0].httpsSrc.replace("%s", "640x640")
       : null,
     minLeaseTermInMonth: unit.minLeaseTermInMonth || null,
     maxLeaseTermInMonth: unit.maxLeaseTermInMonth || null,
-  })
+  });
 
-  const getUnitHistory = selectedFloorplan => {
-    return Object.values(data).reduce((acc, curr) => {
-      let floorPlan = curr[0].floorPlanImages.length
-      ? curr[0].floorPlanImages[0].httpsSrc.replace('%s', '640x640')
-      : null
-      if ( floorPlan === selectedFloorplan) {
-        acc.push(...curr)
-      }
-      return acc;
-    },[]).map(convertRaw)
-  }
+  const getUnitHistory = (selectedFloorplan) => {
+    return Object.values(data)
+      .reduce((acc, curr) => {
+        let floorPlan = curr[0].floorPlanImages.length
+          ? curr[0].floorPlanImages[0].httpsSrc.replace("%s", "640x640")
+          : null;
+        if (floorPlan === selectedFloorplan) {
+          acc.push(...curr);
+        }
+        return acc;
+      }, [])
+      .map(convertRaw);
+  };
 
   const allUnits = Object.values(data).map(
     (entries) => entries[entries.length - 1]
@@ -102,13 +104,35 @@ export default function Home() {
       return acc;
     }, {});
 
+  const resources = [
+    {
+      title: "Source Code",
+      link: "https://github.com/NisanthanNanthakumar/l7sf",
+    },
+    {
+      title: "About This Project",
+      link: "https://nanthakumar.ca/notes/l7sf-rent-data",
+    },
+    { title: "L7SF Website", link: "https://www.l7sf.com" },
+  ];
   return (
     <div className={styles.container}>
       <Head>
-        <title>L7SF Dashboard</title>
+        <title>Nanthakumar - L7SF Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
+        <div style={{ padding: "1rem 3rem 0" }}>
+          <h2>Nanthakumar - L7SF Dashboard</h2>
+          {resources.map(({ title, link }) => (
+            <p key={link}>
+              {`${title}:  `}
+              <a href={link} target="_blank">
+                {link}
+              </a>
+            </p>
+          ))}
+        </div>
         <div
           style={{
             display: "grid",
@@ -134,7 +158,7 @@ export default function Home() {
           <div>
             <h3>Baths</h3>
             <Select
-            instanceId={"baths"}
+              instanceId={"baths"}
               defaultValue={selectedBathOptions}
               isMulti
               name="baths"
@@ -148,7 +172,7 @@ export default function Home() {
           <div>
             <h3>Order By</h3>
             <Select
-            instanceId={"order"}
+              instanceId={"order"}
               className="basic-single"
               classNamePrefix="select"
               defaultValue={orderByOption}
@@ -195,7 +219,6 @@ export default function Home() {
               return 1;
             })
             .map(([floorPlan, units]) => {
-              console.log({floorPlan})
               return (
                 <Card
                   floorPlan={floorPlan}
@@ -213,7 +236,7 @@ export default function Home() {
         onRequestClose={() => setSelectedFloorplan(null)}
         style={modalStyles}
         contentLabel="Example Modal"
-        ariaHideApp={false} 
+        ariaHideApp={false}
       >
         <DetailedView
           floorPlan={selectedFloorplan}
