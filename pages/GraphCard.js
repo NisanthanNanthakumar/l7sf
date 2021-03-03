@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Select from "react-select";
+import { toDate } from 'date-fns-tz'
 
 import {
   LineChart,
@@ -12,10 +13,10 @@ import {
   ReferenceArea,
 } from "recharts";
 
-import { add, format, differenceInCalendarDays } from "date-fns";
+import { add, format, differenceInCalendarDays, getTime  } from "date-fns";
 
 const dateFormatter = (date) => {
-  return format(new Date(date), "dd/MMM");
+  return format(toDate(date), "dd/MMM");
 };
 /**
  * get the dates between `startDate` and `endSate` with equal granularity
@@ -60,27 +61,27 @@ class GraphCard extends Component {
 
   componentDidMount() {
     const { floorPlan, units, unitHistory, onChange } = this.props;
-    console.log({unitHistory})
     if (!unitHistory) {
       return;
     }
 
     const data = unitHistory
       .filter((unit) => unit.rentModifiedTimestamp && unit.rent)
-      .sort(
-        (a, b) =>
-          new Date(a.rentModifiedTimestamp) - new Date(b.rentModifiedTimestamp)
-      )
       .map((unit) => ({
         ...unit,
-        rentModifiedTimestamp: new Date(unit.rentModifiedTimestamp).getTime(),
-      }));
-
+        rentModifiedTimestamp: getTime(toDate(unit.rentModifiedTimestamp)),
+      }))
+      .sort(
+        (a, b) =>
+          a.rentModifiedTimestamp - b.rentModifiedTimestamp
+      )
+      
+    
     const ticks =
       (data.length > 0 &&
         getTicks(
-          new Date(data[0].rentModifiedTimestamp),
-          new Date(data[data.length - 1].rentModifiedTimestamp),
+          toDate(data[0].rentModifiedTimestamp),
+          toDate(data[data.length - 1].rentModifiedTimestamp),
           5
         )) ||
       [];
@@ -110,8 +111,8 @@ class GraphCard extends Component {
         left: data[refAreaLeft].rentModifiedTimestamp,
         right: data[refAreaRight].rentModifiedTimestamp,
         ticks: getTicks(
-          new Date(data[refAreaLeft].rentModifiedTimestamp),
-          new Date(data[refAreaRight].rentModifiedTimestamp),
+          toDate(data[refAreaLeft].rentModifiedTimestamp),
+          toDate(data[refAreaRight].rentModifiedTimestamp),
           5
         ),
       });
@@ -130,8 +131,8 @@ class GraphCard extends Component {
       left: "dataMin",
       right: "dataMax",
       ticks: getTicks(
-        new Date(data[0].rentModifiedTimestamp),
-        new Date(data[data.length - 1].rentModifiedTimestamp),
+        toDate(data[0].rentModifiedTimestamp),
+        toDate(data[data.length - 1].rentModifiedTimestamp),
         5
       ),
     }));
@@ -149,8 +150,8 @@ class GraphCard extends Component {
     let ticks =
       (filteredData.length > 0 &&
         getTicks(
-          new Date(filteredData[0].rentModifiedTimestamp),
-          new Date(filteredData[filteredData.length - 1].rentModifiedTimestamp),
+          toDate(filteredData[0].rentModifiedTimestamp),
+          toDate(filteredData[filteredData.length - 1].rentModifiedTimestamp),
           5
         )) ||
       [];
@@ -176,6 +177,7 @@ class GraphCard extends Component {
 
     const showRentSqFt =
       selectedDataKeyOption && selectedDataKeyOption.value === "rent/sqft";
+      console.log({data, ticks})
     return (
       <div
         style={{
@@ -316,7 +318,7 @@ const CustomTooltip = (props) => {
       >
         <p style={{ color: "grey" }}>
           {currData
-            ? format(new Date(currData.rentModifiedTimestamp), "MMM dd,yyyy")
+            ? format(toDate(currData.rentModifiedTimestamp), "MMM dd,yyyy")
             : " -- "}
         </p>
         <p>{`Rent: $${currData ? currData.rent : " -- "}`}</p>

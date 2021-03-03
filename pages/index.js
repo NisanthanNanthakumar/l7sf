@@ -115,6 +115,7 @@ export default function Home() {
     },
     { title: "L7SF Website", link: "https://www.l7sf.com" },
   ];
+
   return (
     <div className={styles.container}>
       <Head>
