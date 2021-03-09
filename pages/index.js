@@ -111,7 +111,7 @@ export default function Home() {
     },
     {
       title: "About This Project",
-      link: "https://nanthakumar.ca/notes/l7sf-rent-data",
+      link: "https://nanthakumar.ca/notes/visualize-rents-in-san-francisco/",
     },
     { title: "L7SF Website", link: "https://www.l7sf.com" },
   ];
