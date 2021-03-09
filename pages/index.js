@@ -121,6 +121,20 @@ export default function Home() {
       <Head>
         <title>Nanthakumar - L7SF Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-C5LK4R21XW"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-C5LK4R21XW');
+        `,
+          }}
+        ></script>
       </Head>
       <div>
         <div style={{ padding: "1rem 3rem 0" }}>
