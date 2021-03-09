@@ -120,3 +120,26 @@
     flex-direction: column;
   }
 }
+
+
+.hiringCTA {
+  background: rgb(108, 95, 199);
+  padding: 1rem 2rem;
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hiringCTA a {
+  color: white !important;
+}
+
+.hiringCTA button {
+  padding: 0.5rem;
+  cursor: pointer;
+  border-radius: 0.375rem;
+  border: none;
+  margin-left: 1rem;
+}

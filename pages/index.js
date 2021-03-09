@@ -137,6 +137,18 @@ export default function Home() {
         ></script>
       </Head>
       <div>
+        <div className={styles.hiringCTA}>
+          <div>
+            We're <b>HIRING</b> at{" "}
+            <a href="https://sentry.io" target="_blank">
+              Sentry
+            </a>
+            ! Get in front of our recruiters!
+          </div>
+          <a href="https://grnh.se/df6655501us" target="_blank">
+            <button>View Jobs</button>
+          </a>
+        </div>
         <div style={{ padding: "1rem 3rem 0" }}>
           <h2>Nanthakumar - L7SF Dashboard</h2>
           {resources.map(({ title, link }) => (
