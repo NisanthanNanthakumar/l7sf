@@ -37,3 +37,4 @@ jobs:
           commit_message: fresh rent data
           commit_user_email: crawl-bot@github.com
           commit_user_name: crawl-bot
+          push_options: '--force'
