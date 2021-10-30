@@ -32,7 +32,7 @@ jobs:
           yarn run crawl-and-save
 
       - name: Git Commit & Push
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v4.8.0
         with:
           commit_message: fresh rent data
           commit_user_email: crawl-bot@github.com
